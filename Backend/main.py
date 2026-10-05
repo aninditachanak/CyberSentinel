@@ -77,9 +77,13 @@ async def analyze_security_log(file: UploadFile = File(...)):
             "filename": file.filename,
             "analysis": analysis
         }
-
+    
     except Exception as error:
+        print("===== CYBERSENTINEL ANALYSIS ERROR =====")
+        print(type(error).__name__)
+        print(str(error))
+
         raise HTTPException(
             status_code=500,
             detail=f"Analysis failed: {str(error)}"
-        )
+    ) from error
